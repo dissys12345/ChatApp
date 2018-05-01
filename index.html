@@ -12,6 +12,8 @@
       };
       var groupid;
       var user;
+      var hbq;
+
       socket.on('userExists', function(data) {
          document.getElementById('error-container').innerHTML = data;
       });
@@ -23,7 +25,8 @@
       //    <div id = "message-container"></div>';
       // });
       socket.on('userSet', function(data) {
-         user = data.username;
+         if(data.user)
+            user = data.user;
          document.body.innerHTML = '<input type = "text" id = "groupid">\
          <button type = "button" name = "button" onclick = "selectRoom()">Join</button>\
          <div id = "message-container"></div>';
@@ -32,7 +35,7 @@
       function selectRoom() {
          groupid = document.getElementById('groupid').value; 
          if(groupid){
-            socket.emit('selectGroup', {group: groupid, username:user});
+            socket.emit('selectGroup', {group: groupid, user:user});
           }
       }
 
@@ -42,6 +45,14 @@
             socket.emit('msg', {message: msg, user: user, group: groupid });
          }
       }
+
+      function leaveGroup() {
+         
+         if(groupid) {
+            socket.emit('leaveGroup', { user: user, group: groupid });
+         }
+      }
+
       socket.on('newmsg', function(data) {
          if(user) {
             document.getElementById('message-container').innerHTML += '<div><b>' + 
@@ -55,6 +66,7 @@
          document.body.innerHTML = 
         ' <input type = "text" id = "message">\
            <button type = "button" name = "button" onclick = "sendMessage()" >Send</button>\
+           <button type = "button" name = "button" onclick = "leaveGroup()" >Leave Group</button>\
            <div id = "message-container"></div>'
          document.getElementById('message-container').innerHTML += '<div><b>' + data + '</b></div '
       });
