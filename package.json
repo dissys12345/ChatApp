@@ -1,15 +1,11 @@
 {
-  "name": "dissys",
-  "version": "1.0.0",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "author": "",
-  "license": "ISC",
-  "description": "",
+  "name": "chat",
+  "version": "0.0.1",
+  "description": "a simple socket.io chat app",
   "dependencies": {
-    "express": "^4.16.3",
-    "socket.io": "^2.1.0"
+    "express": "^4.10.2",
+    "jquery": "^3.3.1",
+    "jsdom": "^11.10.0",
+    "socket.io": "^1.4.5"
   }
 }
